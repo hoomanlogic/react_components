@@ -2,7 +2,7 @@ var DataTable = React.createClass({
     getInitialState: function () {
         return { 
             sortBy: (this.props.sortBy || this.props.columnDefinitions[0].field), 
-            sortAsc: true
+            sortAsc: (this.props.sortAsc !== void 0 ? this.props.sortAsc : true)
         };
     },
     componentDidUpdate: function () {
@@ -16,8 +16,8 @@ var DataTable = React.createClass({
         // props
         var colDefs = this.props.columnDefinitions;
         var data = _.sortBy(this.props.data, function(item){ return item[sortBy]; });
-        if (!sortAsc) {
-            data.reverse();   
+        if (sortAsc !== true) {
+            data.reverse();
         }
         
         // minimum data requirement
@@ -40,8 +40,6 @@ var DataTable = React.createClass({
             domHeadColumns.push(domHeadColumn);
         };
     
-        // todo: sort data, probably w/ underscore
-        
         if (data) {
             // define rows
             for (j = 0; j < data.length; j++) {
