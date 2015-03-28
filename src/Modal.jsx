@@ -1,6 +1,9 @@
 var Modal = React.createClass({
     getBuffer: function () {
         var buffer = $( ".modal-dialog").offset().top * 2;
+        if (buffer > 60) {
+            buffer = 60;
+        }
         buffer += $( ".modal-header").innerHeight();
         buffer += $( ".modal-footer").innerHeight();
         return buffer;
@@ -11,7 +14,9 @@ var Modal = React.createClass({
             buttons: [],
             keyboard: true, 
             show: true, 
-            remote: ''
+            remote: '',
+            overflowX: 'none',
+            overflowY: 'scroll'
         }
     },
     render: function () {
@@ -26,7 +31,7 @@ var Modal = React.createClass({
                         <div className="modal-header">
                             {this.renderCloseButton()}<strong>{this.props.header}</strong>  
                         </div>  
-                        <div className="modal-body scroll" style={{ height: ($( window ).innerHeight() - 174) + 'px', overflowY: "scroll" }}>
+                        <div className="modal-body scroll" style={{ height: ($( window ).innerHeight() - 174) + 'px', overflowX: this.props.overflowX, overflowY: this.props.overflowY }}>
                             {this.props.children}  
                         </div>  
                         <div className="modal-footer">
