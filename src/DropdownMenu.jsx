@@ -22,14 +22,26 @@ var DropdownMenu = React.createClass({
           className = ' ' + className; 
         }
       
-        return (
-            <li ref="dropdown" className={'dropdown' + className} onClick={this.toggle}>
-                <a href="#" data-toggle="dropdown" className="dropdown-toggle" style={style}>{buttonContent}</a>
-                <ul className="dropdown-menu">
-                  {menuItems}
-                </ul>
-            </li>
-        );
+        if (this.props.useDiv && this.props.useDiv === true) {
+            return (
+                <div ref="dropdown" className={'dropdown' + className} onClick={this.toggle}>
+                    <a href="#" data-toggle="dropdown" className="dropdown-toggle" style={style}>{buttonContent}</a>
+                    <ul className="dropdown-menu">
+                      {menuItems}
+                    </ul>
+                </div>
+            );
+        } else {
+            return (
+                <li ref="dropdown" className={'dropdown' + className} onClick={this.toggle}>
+                    <a href="#" data-toggle="dropdown" className="dropdown-toggle" style={style}>{buttonContent}</a>
+                    <ul className="dropdown-menu">
+                      {menuItems}
+                    </ul>
+                </li>
+            );
+        }
+
     },
     toggle: function () {
         var $win = $(window);
