@@ -5,6 +5,11 @@ var DataTable = React.createClass({
             sortAsc: (this.props.sortAsc !== void 0 ? this.props.sortAsc : true)
         };
     },
+    getDefaultProps: function () {
+        return {
+            maxColWidth: '30vw'  
+        };
+    },
     componentDidUpdate: function () {
         $('[data-toggle="tooltip"]').tooltip();
     },
@@ -69,7 +74,7 @@ var DataTable = React.createClass({
                     }
 
                     var domBodyColumn = (
-                        <td className={'text-' + (colDefs[i].justify || 'left')}>
+                        <td className={'text-' + (colDefs[i].justify || 'left')} style={{ overflowWrap: 'break-word', maxWidth: colDefs[i].maxWidth || this.props.maxColWidth }}>
                             {cellContent}
                         </td>
                     );

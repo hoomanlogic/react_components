@@ -26,7 +26,7 @@ var Modal = React.createClass({
         
         return (
             <div className="modal fade">
-                <div className="modal-dialog">
+                <div className="modal-dialog" style={{ maxWidth: '95vw' }}>
                     <div className="modal-content">  
                         <div className="modal-header">
                             {this.renderCloseButton()}<strong>{this.props.header}</strong>  
