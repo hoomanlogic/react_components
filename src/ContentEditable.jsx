@@ -1,3 +1,6 @@
+/* 
+ * ContentEditable
+ */
 var ContentEditable = React.createClass({
     render: function () {
         return <div 

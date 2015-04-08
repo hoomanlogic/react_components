@@ -1,3 +1,8 @@
+/* 
+ * DataTable
+ * ClassNames: text-[left,right,center] table table-striped fa fa-sort-asc fa-sort-desc
+ * Dependencies: jQuery, Bootstrap(CSS), FontAwesome
+ */
 var DataTable = React.createClass({
     getInitialState: function () {
         return { 
@@ -91,8 +96,6 @@ var DataTable = React.createClass({
             }; 
         }
 
-        
-        
         return (
             <table className="table table-striped">
                 <thead>

@@ -1,3 +1,8 @@
+/* 
+ * Modal
+ * ClassNames: modal modal-dialog modal-content modal-body modal-header modal-footer fade in scroll close
+ * Dependencies: jQuery, Bootstrap(CSS)
+ */
 var Modal = React.createClass({
     getBuffer: function () {
         var buffer = $( ".modal-dialog").offset().top * 2;

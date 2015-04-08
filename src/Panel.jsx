@@ -1,4 +1,5 @@
-/* Panel
+/* 
+ * Panel
  * ClassNames: panel, panel-[default,primary,success,info,warning,danger], panel-collapse, in, collapse, collapsing, clickable, panel-title, overflow
  * Dependencies: jQuery, Bootstrap(CSS)
  * Props: children :: an array of keyed li elements
