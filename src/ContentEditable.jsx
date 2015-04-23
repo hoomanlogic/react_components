@@ -19,6 +19,7 @@ var ContentEditable = React.createClass({
         if (this.props.onChange && html !== this.lastHtml) {
             this.props.onChange({
                 target: {
+                    id: this.props.id || null,
                     value: html
                 }
             });
