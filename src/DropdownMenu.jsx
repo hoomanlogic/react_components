@@ -27,7 +27,7 @@ var DropdownMenu = React.createClass({
             return (
                 <div ref="dropdown" className={'dropdown' + className} onClick={this.toggle}>
                     <a href="#" data-toggle="dropdown" className="dropdown-toggle" style={style}>{buttonContent}</a>
-                    <ul className="dropdown-menu">
+                    <ul className="dropdown-menu" style={this.props.dropDownMenuStyle}>
                       {menuItems}
                     </ul>
                 </div>
@@ -36,7 +36,7 @@ var DropdownMenu = React.createClass({
             return (
                 <li ref="dropdown" className={'dropdown' + className} onClick={this.toggle}>
                     <a href="#" data-toggle="dropdown" className="dropdown-toggle" style={style}>{buttonContent}</a>
-                    <ul className="dropdown-menu">
+                    <ul className="dropdown-menu" style={this.props.dropDownMenuStyle}>
                       {menuItems}
                     </ul>
                 </li>
