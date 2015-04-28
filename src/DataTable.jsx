@@ -77,9 +77,11 @@ var DataTable = React.createClass({
                             <span data-toggle="tooltip" data-placement="bottom" title={data[j][colDefs[i].field]}>{text}</span>
                         );
                     }
+                    
+                    // old: overflowWrap: 'break-word'
 
                     var domBodyColumn = (
-                        <td className={'text-' + (colDefs[i].justify || 'left')} style={{ overflowWrap: 'break-word', maxWidth: colDefs[i].maxWidth || this.props.maxColWidth }}>
+                        <td onClick={this.handleCellContentClick.bind(null, colDefs[i])} className={'text-summary text-' + (colDefs[i].justify || 'left')} style={{ maxWidth: (colDefs[i].maxWidth || this.props.maxColWidth) }}>
                             {cellContent}
                         </td>
                     );
@@ -108,6 +110,17 @@ var DataTable = React.createClass({
                 </tbody>
             </table>
         );
+    },
+    handleCellContentClick: function (colDef, e) {
+        var classNames = e.target.className.split(' ');
+        var index = classNames.indexOf('text-summary');
+        
+        if (index > -1) {
+            classNames.splice(index, 1);
+        } else {
+            classNames.push('text-summary');
+        }
+        e.target.className = classNames.join(' ');
     },
     sort: function (field) {
         var sortBy = this.state.sortBy;
