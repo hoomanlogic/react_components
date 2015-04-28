@@ -112,6 +112,15 @@ var DataTable = React.createClass({
         );
     },
     handleCellContentClick: function (colDef, e) {
+        // get the parent td element
+        var node = e.target;
+        while (String(node) !== '[object HTMLTableCellElement]' && node.parentNode) {
+            node = node.parentNode;
+        }
+        if (String(node) !== '[object HTMLTableCellElement]') {
+            return;
+        }
+        
         var classNames = e.target.className.split(' ');
         var index = classNames.indexOf('text-summary');
         
