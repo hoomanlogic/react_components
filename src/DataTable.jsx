@@ -121,7 +121,7 @@ var DataTable = React.createClass({
             return;
         }
         
-        var classNames = e.target.className.split(' ');
+        var classNames = node.className.split(' ');
         var index = classNames.indexOf('text-summary');
         
         if (index > -1) {
@@ -129,7 +129,7 @@ var DataTable = React.createClass({
         } else {
             classNames.push('text-summary');
         }
-        e.target.className = classNames.join(' ');
+        node.className = classNames.join(' ');
     },
     sort: function (field) {
         var sortBy = this.state.sortBy;
