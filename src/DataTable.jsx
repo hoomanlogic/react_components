@@ -4,20 +4,64 @@
  * Dependencies: jQuery, Bootstrap(CSS), FontAwesome
  */
 var DataTable = React.createClass({
+    /***********************************
+     * COMPONENT LIFECYCLE
+     ***********************************/
+    getDefaultProps: function () {
+        return {
+            maxColWidth: '30vw'  
+        };
+    },
     getInitialState: function () {
         return { 
             sortBy: (this.props.sortBy || this.props.columnDefinitions[0].field), 
             sortAsc: (this.props.sortAsc !== void 0 ? this.props.sortAsc : true)
         };
     },
-    getDefaultProps: function () {
-        return {
-            maxColWidth: '30vw'  
-        };
-    },
+
     componentDidUpdate: function () {
         $('[data-toggle="tooltip"]').tooltip();
     },
+    
+    /***********************************
+     * EVENT HANDLING
+     ***********************************/
+    handleCellContentClick: function (colDef, e) {
+        // get the parent td element
+        var node = e.target;
+        while (String(node) !== '[object HTMLTableCellElement]' && node.parentNode) {
+            node = node.parentNode;
+        }
+        if (String(node) !== '[object HTMLTableCellElement]') {
+            return;
+        }
+        
+        var classNames = node.className.split(' ');
+        var index = classNames.indexOf('text-summary');
+        
+        if (index > -1) {
+            classNames.splice(index, 1);
+        } else {
+            classNames.push('text-summary');
+        }
+        node.className = classNames.join(' ');
+    },
+    handleSortClick: function (field) {
+        var sortBy = this.state.sortBy;
+        var sortAsc = this.state.sortAsc;
+        if (field === sortBy) {
+            sortAsc = !sortAsc;
+        } else {
+            sortBy = field;
+            sortAsc = true;
+        }
+        
+        this.setState({ sortBy: sortBy, sortAsc: sortAsc });
+    },
+    
+    /***********************************
+     * RENDERING
+     ***********************************/
     render: function () {
         // states
         var sortBy = this.state.sortBy;
@@ -25,7 +69,7 @@ var DataTable = React.createClass({
         
         // props
         var colDefs = this.props.columnDefinitions;
-        var data = _.sortBy(this.props.data, function(item){ return item[sortBy]; });
+        var data = _.sortBy(this.props.data, function(item){ return item[sortBy] === null ? '' : item[sortBy]; });
         if (sortAsc !== true) {
             data.reverse();
         }
@@ -42,7 +86,7 @@ var DataTable = React.createClass({
         
             var domHeadColumn = (
                 <th className={'text-' + (colDefs[i].justify || 'left')}>
-                    <a href="javascript:;" onClick={this.sort.bind(null, colDefs[i].field)}>
+                    <a href="javascript:;" onClick={this.handleSortClick.bind(null, colDefs[i].field)}>
                         {colDefs[i].display} <i className={sortBy === colDefs[i].field ? (sortAsc ? 'fa fa-sort-asc' : 'fa fa-sort-desc') : ''}></i>
                     </a>
                 </th>
@@ -99,7 +143,7 @@ var DataTable = React.createClass({
         }
 
         return (
-            <table className="table table-striped">
+            <table style={this.props.style || {}} className="table table-striped">
                 <thead>
                     <tr>
                         {domHeadColumns}
@@ -111,36 +155,4 @@ var DataTable = React.createClass({
             </table>
         );
     },
-    handleCellContentClick: function (colDef, e) {
-        // get the parent td element
-        var node = e.target;
-        while (String(node) !== '[object HTMLTableCellElement]' && node.parentNode) {
-            node = node.parentNode;
-        }
-        if (String(node) !== '[object HTMLTableCellElement]') {
-            return;
-        }
-        
-        var classNames = node.className.split(' ');
-        var index = classNames.indexOf('text-summary');
-        
-        if (index > -1) {
-            classNames.splice(index, 1);
-        } else {
-            classNames.push('text-summary');
-        }
-        node.className = classNames.join(' ');
-    },
-    sort: function (field) {
-        var sortBy = this.state.sortBy;
-        var sortAsc = this.state.sortAsc;
-        if (field === sortBy) {
-            sortAsc = !sortAsc;
-        } else {
-            sortBy = field;
-            sortAsc = true;
-        }
-        
-        this.setState({ sortBy: sortBy, sortAsc: sortAsc });
-    }
 });
