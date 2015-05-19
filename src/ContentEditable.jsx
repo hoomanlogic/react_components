@@ -2,18 +2,8 @@
  * ContentEditable
  */
 var ContentEditable = React.createClass({
-    render: function () {
-        return <div 
-            style={{display: 'inline'}}
-            onInput={this.emitChange} 
-            onBlur={this.emitChange}
-            contentEditable
-            dangerouslySetInnerHTML={{__html: this.props.html}}></div>;    
-    },
-    shouldComponentUpdate: function(nextProps){
-        //return nextProps.html !== this.getDOMNode().innerHTML;
-        return nextProps.html !== this.props.html;
-    },
+	mixins: [React.addons.PureRenderMixin],
+	
     emitChange: function () {
         var html = this.getDOMNode().innerHTML;
         if (this.props.onChange && html !== this.lastHtml) {
@@ -25,5 +15,14 @@ var ContentEditable = React.createClass({
             });
         }
         this.lastHtml = html;    
+    },
+	
+    render: function () {
+        return <div 
+            style={Object.assign({display: 'inline'}, this.props.style)}
+            onInput={this.emitChange} 
+            onBlur={this.emitChange}
+            contentEditable
+            dangerouslySetInnerHTML={{__html: this.props.html}}></div>;    
     }
 });
