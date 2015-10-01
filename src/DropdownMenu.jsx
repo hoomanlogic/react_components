@@ -51,7 +51,7 @@
 
             $box.toggleClass('open');
             $win.on("click.Bst", handler);
-        }
+        },
 
         /***********************************
          * RENDERING
